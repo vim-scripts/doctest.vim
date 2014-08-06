@@ -1,0 +1,7 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=4998
+
+Besides TDD & BDD , What about DDD (Doc Driven Dev) :)
+
+This is a plugin for doctest vim scripts.
+
+see https://github.com/Rykka/doctest.vim
