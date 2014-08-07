@@ -1,11 +1,13 @@
 doctest.vim
 ===========
 
-:version: 0.9
+    Besides TDD & BDD , What about DDD (Doc Driven Dev) :)
 
-Let's start a doctest.
+    -- doctest.vim
 
-::
+:version: 0.95
+
+So, Let's start a doctest::
     
     " A simple one
     " >>> let a = 3
@@ -13,7 +15,8 @@ Let's start a doctest.
     " >>> echo a+b
     " 6
 
-    " Catching error, use ErrorNumber like 'E100'.
+    " Catching error.
+    " (NOTE:use ErrorNumber like 'E100')
     " >>> echom an_undefined_variable
     " E121
     
@@ -29,29 +32,48 @@ Let's start a doctest.
     " >>> echo TestNum(3000)
     " 003000
 
+    " s:vars and s:fn()
+    " >>> let s:k = 5
+    " >>> fun! s:test(i)
+    " >>>   return printf("%07d",a:i+s:k)
+    " >>> endfun
+    " >>> echo s:test(3000)
+    " 0003005
+
+    " Timing something
+    " (NOTE: no s:fn function in timer)
+    " >>> fun! Work()
+    " >>>   let a = 342349.3429*123499.34239/3438923.43
+    " >>> endfun
+    " >>> call doctest#timer("Work", [], 10000)
+    " [TIMER]
+
 With ``:DocTest``,  result would be::
 
     Try::line 9        PASS!
-    Try::line 15       PASS!
-    Try::line 19       PASS!
+    Try::line 16       PASS!
+    Try::line 20       PASS!
     Try::line 25       PASS!
- 
-    Total: 4 tests.
-    Passed:4 tests.
- 
-    Takes: 0.0037 seconds 
+    Try::line 32       PASS!
+    [TIMER] line 41    
+    [TIMER] 0.0637 seconds for exec Work 10000 times. 
+     
+    Total: 5 tests.
+    Passed:5 tests.
 
-So Test Passed , Great! :) 
+    Total Time: 0.0658 seconds 
+     
+
+Test Passed, Great! :) 
 
 **Command**
 
 ``:DocTest[!] [input_file] [output_file]``
 
-Test file's vim docs.
+DocTest with file.
 
-If file is empty or '%', test current file,
-If '!' is added , verbose level is 1.
-
+If file is empty or '%', test current file ,
+If '!' is added, verbose level is 1.
 
 **Option**
 
@@ -66,6 +88,10 @@ Set it to 1 to see more info.
 
 Returns a object with test result 
 
+``doctest#timer(func_name, [[func_arg_list, [exe_time]]])``
+
+Execute func_name with func_arg_list by exe_time.
+
 
 **Test vim file**
 
@@ -78,3 +104,4 @@ In your file, add following code.
     endif "}}}
 
 Use ``:so %`` to test.
+
